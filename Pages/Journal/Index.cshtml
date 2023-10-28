@@ -1,0 +1,66 @@
+﻿@page
+@model MyScriptureJournal.Pages.Journal.IndexModel
+
+@{
+    ViewData["Title"] = "Journal";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<form class="form-inline">
+    Book: <input type="text" asp-for="Book" />
+    Notes: <input type="text" asp-for="Notes" />
+    Sort: <select asp-for="Sort" asp-items="@Html.GetEnumSelectList<IndexModel.SortMode>()"></select>
+    <input type="submit" value="Filter" />
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ScriptureJournalEntry[0].Book)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ScriptureJournalEntry[0].Chapter)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ScriptureJournalEntry[0].Verse)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ScriptureJournalEntry[0].Notes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ScriptureJournalEntry[0].Added)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.ScriptureJournalEntry) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Book)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Chapter)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Verse)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NotesShort)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Added)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
